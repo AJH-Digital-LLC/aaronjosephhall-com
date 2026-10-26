@@ -1,0 +1,7 @@
+---
+const categories = ["Christian Life", "Church & Ministry", "Devotionals", "Discipleship"];
+---
+<nav class="category-nav" aria-label="Blog categories">
+  {categories.map((category) => <a href={`/articles/categories/#${category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>{category}</a>)}
+  <a href="/articles/categories/" class="category-all">View All <span class="sr-only">categories</span></a>
+</nav>

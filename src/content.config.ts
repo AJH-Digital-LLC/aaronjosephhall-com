@@ -25,6 +25,8 @@ const articles = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      // Set true when the owner identifies a timeless post; hide visible dates only.
+      evergreen: z.boolean().default(false),
       // Optional: the migration inventory did not include verified publish
       // dates for every article. Never fill this with a guessed date —
       // leave it unset (the archive will show "Date pending") until the
@@ -53,6 +55,9 @@ const articles = defineCollection({
       // pair with contentPending: true — an AI draft is still not the
       // real, final copy.
       aiDraft: z.boolean().default(false),
+    }).refine((article) => !article.image || Boolean(article.imageAlt?.trim()), {
+      message: "Featured article images require descriptive imageAlt text.",
+      path: ["imageAlt"],
     }),
 });
 

@@ -4,6 +4,8 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { SITE } from "@/data/site";
 import { formatDate } from "@/lib/format";
+import AuthorBox from "@/components/AuthorBox.astro";
+import AffiliateDisclosure from "@/components/AffiliateDisclosure.astro";
 
 export async function getStaticPaths() {
   const books = await getCollection("books");
@@ -49,10 +51,11 @@ const jsonLd = {
   path={`/books/${entry.id}/`}
   structuredData={jsonLd}
 >
-  <article class="mx-auto max-w-4xl px-6 py-16 md:py-24 grid gap-10 md:grid-cols-[240px_1fr]">
-    <div class="w-full aspect-[2/3] bg-parchment-dim border border-ink/10 rounded overflow-hidden">
+  <div class="mx-auto max-w-6xl px-6 pt-10"><nav aria-label="Breadcrumb" class="book-breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/books/">All books</a><span aria-hidden="true">/</span><span aria-current="page">{title}</span></nav></div>
+  <article class="book-detail mx-auto max-w-6xl px-6 py-12 md:py-20">
+    <div class="book-cover-stage book-detail-cover">
       {cover ? (
-        <img src={cover} alt={coverAlt ?? `${title} book cover`} class="h-full w-full object-cover" />
+        <img src={cover} alt={coverAlt ?? `${title} book cover`} class="book-cover" width="550" height="850" fetchpriority="high" />
       ) : (
         <div class="h-full w-full flex items-center justify-center">
           <span class="font-display text-stone text-sm px-4 text-center opacity-60">Cover image pending</span>
@@ -60,13 +63,20 @@ const jsonLd = {
       )}
     </div>
 
-    <div>
-      <p class="eyebrow">Book</p>
+    <div class="min-w-0">
+      <p class="eyebrow">By Aaron Joseph Hall</p>
       <h1 class="mt-3 text-4xl md:text-5xl">{title}</h1>
       {subtitle && <p class="mt-2 text-xl text-stone">{subtitle}</p>}
+      <p class="mt-6 text-lg text-ink-soft">{excerpt}</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        {purchaseLinks.map((link) => <a href={link.url} target="_blank" rel="noopener noreferrer sponsored" class="action-link">{link.label}<span class="sr-only"> (opens in a new tab)</span></a>)}
+        <a href="#about-book" class="action-link action-link-secondary">About the book</a>
+      </div>
+      <p class="mt-4 text-sm text-stone">Purchases are completed on the retailer’s website. <a href="/legal/affiliate-disclaimer/" class="underline">Affiliate disclosure</a></p>
+      <nav class="category-nav" aria-label="On this page"><a href="#about-book">Overview</a><a href="#book-details">Book details</a><a href="#book-author">About the author</a></nav>
 
       {(isbn10 || isbn13 || pageCount || language || dimensions || publisher || publishDate) && (
-        <dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-2 text-sm text-stone max-w-sm">
+        <details id="book-details" class="book-specifications" open><summary>Book details</summary><dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-stone">
           {pageCount && <><dt class="font-medium text-ink-soft">Print length</dt><dd>{pageCount} pages</dd></>}
           {language && <><dt class="font-medium text-ink-soft">Language</dt><dd>{language}</dd></>}
           {publishDate && <><dt class="font-medium text-ink-soft">Published</dt><dd>{formatDate(publishDate)}</dd></>}
@@ -74,20 +84,11 @@ const jsonLd = {
           {dimensions && <><dt class="font-medium text-ink-soft">Dimensions</dt><dd>{dimensions}</dd></>}
           {isbn10 && <><dt class="font-medium text-ink-soft">ISBN-10</dt><dd>{isbn10}</dd></>}
           {isbn13 && <><dt class="font-medium text-ink-soft">ISBN-13</dt><dd>{isbn13}</dd></>}
-        </dl>
+        </dl></details>
       )}
 
-      {purchaseLinks.length > 0 && (
-        <div class="mt-8 flex flex-wrap gap-3">
-          {purchaseLinks.map((link) => (
-            <a href={link.url} target="_blank" rel="noreferrer" class="rounded-full bg-clay text-parchment px-5 py-2.5 text-sm font-medium hover:bg-clay-dark transition-colors">
-              {link.label}
-            </a>
-          ))}
-        </div>
-      )}
-
-      <div class="prose-article mt-10">
+      <div id="about-book" class="prose-article mt-10 scroll-mt-24">
+        <h2>About the book</h2>
         {contentPending && (
           <p class="content-pending-notice not-prose mb-8">
             <strong>Content pending.</strong> Description, ISBN, page count, and purchase links from the
@@ -96,6 +97,9 @@ const jsonLd = {
         )}
         <Content />
       </div>
+      <div class="mt-8"><AffiliateDisclosure /></div>
+      <div id="book-author" class="scroll-mt-24"><AuthorBox /></div>
+      <a href="/books/" class="back-link mt-8">Browse all books</a>
     </div>
   </article>
 </BaseLayout>

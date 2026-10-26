@@ -15,7 +15,7 @@ const { title, date, category, excerpt, image, imageAlt } = entry.data;
 <a
   href={`/articles/${entry.id}`}
   class:list={[
-    "group block rounded-2xl border border-ink/10 bg-white shadow-sm overflow-hidden transition-shadow hover:shadow-md",
+    "article-card group block overflow-hidden",
     featured ? "md:grid md:grid-cols-2 md:gap-0" : "",
   ]}
 >
@@ -34,18 +34,18 @@ const { title, date, category, excerpt, image, imageAlt } = entry.data;
       </div>
     )}
   </div>
-  <div class:list={["p-6", featured ? "md:p-10 md:flex md:flex-col md:justify-center" : ""]}>
+  <div class:list={["py-6", featured ? "md:p-10 md:flex md:flex-col md:justify-center" : ""]}>
     <p class="eyebrow">{category ?? "Category pending"}</p>
     <h3 class:list={["mt-2 font-display text-ink group-hover:text-clay transition-colors", featured ? "text-3xl" : "text-xl"]}>
       {title}
     </h3>
-    <p class:list={["mt-3 text-stone", featured ? "text-base" : "text-sm line-clamp-3"]}>{excerpt}</p>
-    {date ? (
-      <time datetime={date.toISOString()} class="mt-4 block text-xs text-stone">
+    <p class:list={["mt-3 text-stone text-base leading-relaxed", featured ? "" : "line-clamp-3"]}>{excerpt}</p>
+    {!entry.data.evergreen && (date ? (
+      <time datetime={date.toISOString()} class="mt-4 block text-sm text-stone">
         {formatDate(date)}
       </time>
     ) : (
       <p class="mt-4 block text-xs text-stone italic">Date pending</p>
-    )}
+    ))}
   </div>
 </a>

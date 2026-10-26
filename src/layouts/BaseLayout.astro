@@ -2,7 +2,6 @@
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import CookieBanner from "@/components/CookieBanner.astro";
-import WorkNoticeBar from "@/components/WorkNoticeBar.astro";
 import SEO from "@/components/SEO.astro";
 import { SITE } from "@/data/site";
 import "@/styles/global.css";
@@ -20,9 +19,6 @@ interface Props {
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
   /** Omit the footer's embedded newsletter form, e.g. on a page that already features it. */
   hideNewsletterForm?: boolean;
-  /** Omit the small "also available for website work" notice bar, e.g. on
-   * /work-with-me itself or on articles (which carry their own CTA instead). */
-  hideWorkNotice?: boolean;
 }
 
 const {
@@ -36,7 +32,6 @@ const {
   noindex,
   structuredData,
   hideNewsletterForm,
-  hideWorkNotice,
 } = Astro.props;
 
 const schemaBlocks = structuredData
@@ -79,11 +74,14 @@ const schemaBlocks = structuredData
       Skip to content
     </a>
     <Header />
-    {!hideWorkNotice && <WorkNoticeBar />}
     <main id="main" class="flex-1">
       <slot />
     </main>
     <Footer hideNewsletterForm={hideNewsletterForm} />
     <CookieBanner />
+    <script is:inline>
+      window.refTagger = { settings: { bibleVersion: "ESV" } };
+    </script>
+    <script is:inline async src="https://api.reftagger.com/v2/RefTagger.js"></script>
   </body>
 </html>

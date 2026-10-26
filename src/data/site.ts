@@ -4,7 +4,7 @@
 
 export const SITE = {
   name: "Aaron Joseph Hall",
-  tagline: "Pastor. Husband. Father. Author. Speaker. Realtor.",
+  tagline: "Pastor. Husband. Father. Author. Speaker.",
   url: "https://aaronjosephhall.com",
   email: "aaron@aaronjosephhall.com",
   locale: "en-US",
@@ -22,9 +22,9 @@ export interface NavLink {
 export const NAV_LINKS: (NavLink & { inNav?: boolean })[] = [
   { label: "About", href: "/about" },
   { label: "Writing", href: "/articles" },
+  { label: "Podcast", href: "/podcast" },
   { label: "Speaking", href: "/speaking" },
   { label: "Books", href: "/books" },
-  { label: "Work With Me", href: "/work-with-me" },
   { label: "Newsletter", href: "/newsletter" },
   { label: "Contact", href: "/contact" },
 ];
@@ -36,6 +36,7 @@ export const SOCIAL_LINKS: { label: string; href: string }[] = [
 ];
 
 export const LEGAL_LINKS: NavLink[] = [
+  { label: "Affiliate Disclaimer", href: "/legal/affiliate-disclaimer/" },
   { label: "Privacy Policy", href: "/legal/privacy-policy" },
   { label: "Terms of Use", href: "/legal/terms-of-use" },
 ];

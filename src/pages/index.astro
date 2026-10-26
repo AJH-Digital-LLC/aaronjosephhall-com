@@ -17,38 +17,34 @@ const bookSummary = featuredBook
 
 <BaseLayout
   title={SITE.name}
-  description="Aaron Joseph Hall is a pastor, husband, father, and author. His ministry blog covers life, faith, family, ministry, and technology, alongside the website development, hosting, and content + copywriting work he does, and his real estate work as a Realtor with VPR United Real Estate in Alabama."
+  description="Writing on faith, family, discipleship, and life in ministry from pastor and author Aaron Joseph Hall."
   path="/"
 >
-  <section class="border-b border-ink/10">
-    <div class="mx-auto max-w-6xl px-6 py-20 md:py-32 grid gap-10 md:grid-cols-[1.3fr_1fr] items-end">
+  <section class="home-intro border-b border-ink/10">
+    <div class="mx-auto max-w-6xl px-6 py-16 md:py-24 grid gap-10 md:grid-cols-[1.5fr_1fr] items-center">
       <div>
-        <p class="eyebrow">Pastor &middot; Husband &middot; Father &middot; Author &middot; Speaker &middot; Realtor</p>
-        <h1 class="mt-4 text-5xl md:text-6xl leading-[0.95]">{SITE.name}</h1>
+        <p class="eyebrow">Aaron Joseph Hall · Pastor &amp; author</p>
+        <h1 class="mt-5 text-5xl md:text-7xl leading-[1.02]">Faith in the<br /><em>ordinary days.</em></h1>
         <p class="mt-6 max-w-xl text-lg text-stone">
           I'm a pastor, husband, father, and author. This is my ministry blog — writing on life,
-          faith, family, ministry, and technology — alongside the digital media work I do: website
-          development &amp; hosting, and content + copywriting. I'm also a Realtor with VPR United
-          Real Estate in Alabama —{" "}
-          <a href="https://soldwithhall.com" target="_blank" rel="noreferrer" class="font-medium text-clay hover:underline">
-            see soldwithhall.com
-          </a>.
+          faith, family, and ministry, and following Jesus in the everyday.
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a href="/articles" class="rounded-full bg-clay text-parchment px-6 py-3 text-sm font-medium hover:bg-clay-dark transition-colors">
             Read the writing
           </a>
-          <a href="/work-with-me" class="rounded-full border border-ink/20 px-6 py-3 text-sm font-medium text-ink hover:border-ink hover:bg-ink/5 transition-colors">
-            Work with me
+          <a href="/about" class="rounded-full border border-ink/20 px-6 py-3 text-sm font-medium text-ink hover:border-ink hover:bg-ink/5 transition-colors">
+            Meet Aaron
           </a>
         </div>
       </div>
-      <div class="aspect-square overflow-hidden rounded-lg bg-parchment-dim">
+      <div class="portrait-frame aspect-[4/5] overflow-hidden bg-parchment-dim">
         <img
           src="/AaronJosephHall.jpg"
           alt={SITE.name}
           width="1500"
           height="1501"
+          fetchpriority="high"
           class="h-full w-full object-cover"
         />
       </div>
@@ -56,7 +52,7 @@ const bookSummary = featuredBook
   </section>
 
   <section class="mx-auto max-w-6xl px-6 py-16 md:py-20">
-    <p class="eyebrow mb-8">Latest writing</p>
+    <div class="section-heading"><p class="eyebrow">From the journal</p><h2>Latest writing</h2></div>
     <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {latestArticles.map((entry) => <li><ArticleCard entry={entry} /></li>)}
     </ul>
@@ -76,19 +72,10 @@ const bookSummary = featuredBook
           copy: "Aaron speaks on Leadership, Church Planting, Faith, Culture, and more, bringing honest conversations and practical biblical insight to churches, conferences, and events.",
         },
         { label: "Books", href: "/books", copy: bookSummary },
-        { label: "Work With Me", href: "/work-with-me", copy: "Website development & hosting, and content + copywriting." },
         { label: "Newsletter", href: "/newsletter", copy: "Get new writing and updates in your inbox." },
-        {
-          label: "Real Estate",
-          href: "https://soldwithhall.com",
-          copy: "Realtor with VPR United Real Estate in Alabama — buying or selling? Let's talk.",
-          external: true,
-        },
       ].map((card) => (
         <a
           href={card.href}
-          target={card.external ? "_blank" : undefined}
-          rel={card.external ? "noreferrer" : undefined}
           class="group block rounded-2xl border border-ink/10 bg-white shadow-sm p-6 hover:shadow-md transition-shadow"
         >
           <h2 class="font-display text-xl group-hover:text-clay">{card.label}</h2>

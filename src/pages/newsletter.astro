@@ -6,16 +6,50 @@ import NewsletterForm from "@/components/NewsletterForm.astro";
 
 <BaseLayout
   title="Newsletter"
-  description="Sign up for Aaron Joseph Hall's newsletter."
+  description="Weekly biblical encouragement and honest reflections on faith, leadership, and following Jesus. Subscribe to Aaron Joseph Hall's newsletter."
   path="/newsletter"
   hideNewsletterForm
 >
-  <section class="mx-auto max-w-2xl px-6 py-16 md:py-24">
-    <p class="eyebrow">Newsletter</p>
-    <h1 class="mt-3 text-4xl md:text-5xl">Stay in touch</h1>
-
-    <div class="mt-10 flex justify-center">
-      <NewsletterForm />
+  <section class="newsletter-page">
+    <div class="newsletter-layout mx-auto max-w-6xl px-6 py-14 md:py-20">
+      <div class="newsletter-copy">
+        <p class="eyebrow">A weekly note from Aaron</p>
+        <h1>Encouragement for<br /><em>the everyday walk.</em></h1>
+        <p class="newsletter-intro">Faith doesn’t stop at Sunday. Get honest reflections and biblical encouragement for following Jesus in the middle of real life.</p>
+        <ul class="newsletter-benefits">
+          <li><span aria-hidden="true">01</span><div><h2>Rooted in Scripture</h2><p>Biblical insight to help you grow in faith and discipleship.</p></div></li>
+          <li><span aria-hidden="true">02</span><div><h2>Honest about real life</h2><p>What I’m learning, wrestling with, and discovering about faith, leadership, and culture.</p></div></li>
+          <li><span aria-hidden="true">03</span><div><h2>Something to carry with you</h2><p>Practical encouragement to lead well, live free, and follow Jesus faithfully.</p></div></li>
+        </ul>
+        <div class="newsletter-author"><img src="/AaronJosephHall.jpg" alt="Aaron Joseph Hall" width="64" height="64" /><div><p>Aaron Joseph Hall</p><span>Pastor. Husband. Father. Author.</span></div></div>
+      </div>
+      <div id="newsletter-signup" class="newsletter-signup">
+        <p class="signup-eyebrow">Make room for encouragement</p>
+        <NewsletterForm heading="Let’s stay in touch." introduction="Join my email list for a weekly note on faith and following Jesus. Enter your details below to subscribe." buttonLabel="Subscribe to Aaron’s newsletter" />
+        <p class="signup-note">Read when you have a quiet moment. Unsubscribe anytime.</p>
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .newsletter-page { background: #193b32; color: #fffdf5; }
+  .newsletter-layout { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(2rem,5vw,4.5rem); align-items: start; }
+  .newsletter-copy .eyebrow { color: #f2d298; }
+  .newsletter-copy h1 { color: #fffdf5; font-size: clamp(2.5rem,4.8vw,3.8rem); line-height: 1.1; margin-top: 1.2rem; }
+  .newsletter-copy h1 em { color: #f2d298; font-style: normal; }
+  .newsletter-intro { font-size: 1.15rem; line-height: 1.75; color: #e7eee9; margin-top: 1.5rem; }
+  .newsletter-benefits { display: grid; gap: 1.4rem; margin-top: 2rem; }
+  .newsletter-benefits li { display: flex; gap: 1rem; }
+  .newsletter-benefits li > span { color: #f2d298; font-size: .875rem; font-weight: 600; padding-top: .2rem; }
+  .newsletter-benefits h2 { color: #fffdf5; font-size: 1.2rem; line-height: 1.35; }
+  .newsletter-benefits p { color: #e7eee9; margin-top: .35rem; font-size: 1rem; line-height: 1.6; }
+  .newsletter-author { display: flex; align-items: center; gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #789184; }
+  .newsletter-author img { width: 64px; height: 64px; object-fit: cover; border-radius: 50%; }
+  .newsletter-author p { font-family: var(--font-display); font-size: 1.25rem; }
+  .newsletter-author span { color: #e7eee9; font-size: .875rem; }
+  .newsletter-signup { background: #fffefa; color: #202d25; padding: clamp(1.25rem,3vw,2.5rem); border-radius: 18px; border-top: 5px solid #f2d298; box-shadow: 0 20px 50px #071c1840; min-width: 0; }
+  .signup-eyebrow { color: #71351e; text-transform: uppercase; font-size: .8rem; letter-spacing: .1em; font-weight: 700; margin-bottom: 1.2rem; }
+  .signup-note { color: #414e44; font-size: .875rem; line-height: 1.6; border-top: 1px solid #bec9bd; padding-top: 1rem; margin-top: 1rem; }
+  @media (max-width: 850px) { .newsletter-layout { grid-template-columns: 1fr; } .newsletter-signup { grid-row: 2; } .newsletter-benefits { gap: 1rem; } }
+</style>

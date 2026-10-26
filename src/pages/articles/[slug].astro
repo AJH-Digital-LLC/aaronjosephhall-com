@@ -4,9 +4,11 @@ import { getCollection, render } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ArticleCard from "@/components/ArticleCard.astro";
+import ArticleShare from "@/components/ArticleShare.astro";
+import AuthorBox from "@/components/AuthorBox.astro";
+import CategoryNav from "@/components/CategoryNav.astro";
 import ContentPendingNotice from "@/components/ContentPendingNotice.astro";
 import AffiliateDisclosure from "@/components/AffiliateDisclosure.astro";
-import ArticleWorkCTA from "@/components/ArticleWorkCTA.astro";
 import { formatDate, readingTime } from "@/lib/format";
 import { SITE } from "@/data/site";
 
@@ -66,18 +68,23 @@ const jsonLd = {
   publishedTime={date}
   image={image?.src}
   structuredData={jsonLd}
-  hideWorkNotice
 >
+  <div class="blog-post">
   <article class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+    <a href="/articles" class="back-link">All writing</a>
+    <CategoryNav />
     <p class="eyebrow">{category ?? "Category pending"}</p>
     <h1 class="mt-3 text-4xl md:text-5xl">{title}</h1>
     <div class="mt-5 flex flex-wrap items-center gap-3 text-sm text-stone">
       <span>By {author}</span>
       <span aria-hidden="true">&middot;</span>
-      {date ? <time datetime={date.toISOString()}>{formatDate(date)}</time> : <span class="italic">Date pending</span>}
-      <span aria-hidden="true">&middot;</span>
+      {!entry.data.evergreen && <>
+        {date ? <time datetime={date.toISOString()}>{formatDate(date)}</time> : <span class="italic">Date pending</span>}
+        <span aria-hidden="true">&middot;</span>
+      </>}
       <span>{minutes} min read</span>
     </div>
+    <ArticleShare title={title} url={new URL(`/articles/${entry.id}/`, SITE.url).href} />
 
     {image && (
       <Image
@@ -96,10 +103,10 @@ const jsonLd = {
         </div>
       )}
       <AffiliateDisclosure />
-      <ArticleWorkCTA variant="top" />
       <Content />
-      <ArticleWorkCTA variant="bottom" />
     </div>
+    <ArticleShare title={title} url={new URL(`/articles/${entry.id}/`, SITE.url).href} />
+    <AuthorBox />
   </article>
 
   {(prev || next) && (
@@ -129,4 +136,37 @@ const jsonLd = {
       </div>
     </section>
   )}
+  </div>
 </BaseLayout>
+
+<style>
+  .blog-post { background: #fffefa; color: #202d25; }
+  .blog-post :global(h1), .blog-post :global(h2), .blog-post :global(h3),
+  .blog-post :global(.prose-article strong) { color: #172c22; }
+  .blog-post :global(.prose-article) { color: #29372e; }
+  .blog-post :global(.text-stone), .blog-post :global(.text-ink-soft),
+  .blog-post :global(.author-box p:not(.eyebrow)) { color: #414e44; }
+  .blog-post :global(.eyebrow), .blog-post :global(.back-link),
+  .blog-post :global(.prose-article a), .blog-post :global(.author-links a) { color: #71351e; }
+  .blog-post :global(.prose-article a:hover), .blog-post :global(.author-links a:hover),
+  .blog-post :global(.back-link:hover) { color: #193b32; text-decoration-thickness: 2px; }
+  .blog-post :global(.prose-article blockquote) {
+    color: #193b32; background: #edf2eb; border-left: 4px solid #315b43;
+    padding: 1rem 1.5rem; border-radius: 0 8px 8px 0;
+  }
+  .blog-post :global([role="note"]) { background: #f7eee0; border-color: #885136; }
+  .blog-post :global([role="note"] svg) { color: #71351e; }
+  .blog-post :global(.category-nav a), .blog-post :global(.share-actions a),
+  .blog-post :global(.share-actions button) { color: #253d2f; background: #fff; border-color: #738277; }
+  .blog-post :global(.category-nav a:hover), .blog-post :global(.share-actions a:hover),
+  .blog-post :global(.share-actions button:hover) { background: #e5ece4; border-color: #193b32; }
+  .blog-post :global(.category-nav .category-all) { background: #193b32; color: #fffdf5; border-color: #193b32; }
+  .blog-post :global(.category-nav .category-all:hover) { background: #102a22; }
+  .blog-post :global(.article-share) { border-color: #89978b; }
+  .blog-post :global(.share-status) { color: #193b32; font-weight: 600; }
+  .blog-post :global(.author-box) { background: #edf2eb; border-color: #89978b; }
+  .blog-post :global(a:focus-visible), .blog-post :global(button:focus-visible),
+  .blog-post :global(input:focus-visible) { outline: 3px solid #193b32; outline-offset: 4px; }
+  .blog-post :global(.article-card:hover h3),
+  .blog-post :global(nav[aria-label="Article navigation"] a:hover) { color: #71351e; text-decoration: underline; }
+</style>

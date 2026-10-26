@@ -1,0 +1,34 @@
+---
+export const prerender = true;
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+<BaseLayout title="Freedom, People, Purpose with Aaron Joseph Hall" description="Real-life conversations about faith and modern culture, theology, leadership, and authentic discipleship from an uncompromised biblical perspective." path="/podcast/">
+  <section class="podcast-intro">
+    <div class="podcast-layout mx-auto max-w-6xl px-6 py-16 md:py-24">
+      <img src="/freedom-people-purpose.png" alt="Freedom, People, Purpose with Aaron Joseph Hall podcast artwork" width="1254" height="1254" fetchpriority="high" />
+      <div>
+        <p class="eyebrow">The podcast</p>
+        <h1>Freedom, People, Purpose</h1>
+        <p class="podcast-host">with Aaron Joseph Hall</p>
+        <p class="podcast-description">Welcome to Freedom, People, Purpose with Aaron Joseph Hall, where Aaron pulls back the curtain on Sunday morning to have raw, real-life conversations about the intersection of faith and modern culture.</p>
+        <p class="podcast-description">Join us each week as church leaders and everyday believers discuss tough life questions, trending cultural issues, theology, leadership, and authentic discipleship, all from an uncompromised biblical perspective.</p>
+      </div>
+    </div>
+  </section>
+  <section class="mx-auto max-w-3xl px-6 py-16 md:py-20">
+    <p class="eyebrow">Listen &amp; follow</p>
+    <h2 class="mt-3 text-3xl">Listening links are on the way.</h2>
+    <p class="mt-5 text-lg text-ink-soft leading-relaxed">The podcast feed is not available yet. Check back here for episodes and listening links.</p>
+    <p class="mt-5 text-lg text-ink-soft leading-relaxed">If you're encouraged, subscribe, leave a review, and share with a friend to help more people discover the hope and truth of Jesus Christ.</p>
+  </section>
+</BaseLayout>
+<style>
+  .podcast-intro { background: #193b32; color: #fffdf5; }
+  .podcast-layout { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(2rem,5vw,4rem); align-items: center; }
+  .podcast-layout img { width: 100%; height: auto; border-radius: 16px; border: 1px solid #758f80; }
+  .podcast-intro .eyebrow { color: #f2d298; }
+  .podcast-intro h1 { color: #fffdf5; font-size: clamp(2.5rem,5vw,4rem); line-height: 1.1; margin-top: 1rem; }
+  .podcast-host { color: #f2d298; font-size: 1.25rem; margin-top: 1rem; }
+  .podcast-description { color: #e7eee9; font-size: 1.125rem; line-height: 1.75; margin-top: 1.5rem; }
+  @media (max-width: 800px) { .podcast-layout { grid-template-columns: 1fr; } .podcast-layout img { max-width: 420px; margin-inline: auto; } }
+</style>

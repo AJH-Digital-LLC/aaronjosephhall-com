@@ -1,0 +1,65 @@
+---
+export const prerender = true;
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { ARTICLE_CATEGORIES } from "@/content.config";
+import { formatDate } from "@/lib/format";
+const posts = (await getCollection("articles", ({ data }) => !data.draft)).sort((a,b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
+const categories = ARTICLE_CATEGORIES.map(name => ({name, id:name.toLowerCase().replace(/[^a-z0-9]+/g,"-"), posts:posts.filter(p=>p.data.category===name)}));
+---
+<BaseLayout title="All blog categories" description="Explore Aaron Joseph Hall's writing by topic, from Christian life and discipleship to leadership and ministry." path="/articles/categories/">
+  <section class="categories-page mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <a href="/articles" class="back-link">All writing</a>
+    <p class="eyebrow mt-8">Browse by topic</p>
+    <h1 class="mt-3 text-4xl md:text-6xl">A place to keep growing.</h1>
+    <p class="mt-5 text-lg text-stone max-w-2xl">Explore reflections on faith, the local church, and the everyday practice of following Jesus.</p>
+    <nav class="category-nav mt-8" aria-label="Jump to category">{categories.map(c => <a href={`#${c.id}`}>{c.name} <span>({c.posts.length})</span></a>)}</nav>
+    <div class="category-directory">
+      {categories.map(c => <section id={c.id} class="category-panel">
+        <p class="eyebrow">{c.posts.length} {c.posts.length === 1 ? "article" : "articles"}</p>
+        <h2>{c.name}</h2>
+        {c.posts.length ? <ul>{c.posts.slice(0, 5).map(p=><li><a href={`/articles/${p.id}/`}>{p.data.title}</a>{!p.data.evergreen && p.data.date && <time datetime={p.data.date.toISOString()}>{formatDate(p.data.date)}</time>}</li>)}</ul> : <p class="text-stone mt-5">No published articles in this category yet.</p>}
+        <a class="view-category" href={`/articles/categories/${c.id}/`}>View All <span class="sr-only">{c.name} articles</span></a>
+      </section>)}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .categories-page { color: #243c32; }
+  .categories-page h1, .categories-page h2 { color: #193b32; line-height: 1.2; }
+  .categories-page .text-stone, .categories-page time { color: #414e44; }
+  .categories-page .eyebrow, .categories-page .back-link { color: #71351e; }
+  .categories-page .category-nav a {
+    color: #193b32;
+    background: #fff;
+    border: 1px solid #718477;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .categories-page .category-nav a:hover {
+    color: #fff;
+    background: #193b32;
+    border-color: #193b32;
+  }
+  .categories-page .category-panel {
+    background: #fff;
+    border-color: #87988b;
+    border-top: 4px solid #193b32;
+  }
+  .categories-page .category-panel li { border-color: #a5b2a8; }
+  .categories-page .category-panel li a {
+    color: #71351e;
+    line-height: 1.6;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+  .categories-page .category-panel li a:hover { color: #193b32; text-decoration-thickness: 2px; }
+  .categories-page a:focus-visible { outline: 3px solid #193b32; outline-offset: 4px; }
+  .categories-page .category-panel:target { outline: 3px solid #71351e; outline-offset: 4px; }
+  .categories-page .view-category { display: inline-flex; align-items: center; min-height: 44px; margin-top: 1.5rem; padding: .65rem 1rem; border-radius: 8px; background: #193b32; color: #fff; font-weight: 600; }
+  .categories-page .view-category:hover { background: #102a22; text-decoration: underline; }
+  @media (max-width: 480px) {
+    .categories-page .category-panel { padding: 1.5rem; }
+  }
+</style>

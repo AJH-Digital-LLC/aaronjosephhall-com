@@ -11,12 +11,12 @@ function isActive(href: string) {
 ---
 
 <header class="border-b border-ink/10 bg-parchment/95 backdrop-blur sticky top-0 z-40">
-  <div class="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between gap-6">
-    <a href="/" class="font-display text-xl tracking-tight text-pine shrink-0">
+  <div class="header-inner mx-auto max-w-6xl px-6 py-4 flex items-center justify-between gap-6">
+    <a href="/" class="site-wordmark" aria-label="Aaron Joseph Hall — homepage">
       {SITE.name}
     </a>
 
-    <nav aria-label="Primary" class="hidden md:flex items-center gap-7 text-sm">
+    <nav aria-label="Primary" class="hidden lg:flex items-center gap-7 text-sm">
       {links.map((link) => (
         <a
           href={link.href}
@@ -31,7 +31,7 @@ function isActive(href: string) {
       ))}
     </nav>
 
-    <details class="md:hidden relative">
+    <details class="lg:hidden relative shrink-0">
       <summary class="list-none cursor-pointer select-none rounded border border-ink/10 px-3 py-1.5 text-sm font-medium text-ink-soft">
         Menu
       </summary>
@@ -51,3 +51,26 @@ function isActive(href: string) {
     </details>
   </div>
 </header>
+
+<style>
+  .site-wordmark {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+    font-weight: 650;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    color: #193b32;
+    text-decoration: none;
+    padding-block: .3rem;
+    border-bottom: 2px solid #b78647;
+    transition: color .15s, border-color .15s;
+  }
+  .site-wordmark:hover { color: #71351e; border-color: #71351e; }
+  .site-wordmark:focus-visible { outline: 3px solid #193b32; outline-offset: 6px; border-radius: 2px; }
+  @media (max-width: 400px) {
+    .header-inner { gap: .75rem; padding-inline: 1rem; }
+    .site-wordmark { font-size: 1.4rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .site-wordmark { transition: none; } }
+</style>

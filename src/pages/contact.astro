@@ -3,21 +3,20 @@ export const prerender = true;
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { SITE } from "@/data/site";
 
-const reasons = ["General Inquiry", "Writing / Media / Interview", "Website or Content Work", "Other"];
+const reasons = ["General Inquiry", "Writing / Media / Interview", "Ministry", "Other"];
 const obfuscatedEmail = SITE.email.replace("@", " [at] ").replace(/\.(?=[^.]*$)/, " [dot] ");
 ---
 
 <BaseLayout
   title="Contact"
-  description="Get in touch with Aaron Joseph Hall — for writing, media, interviews, general questions, or to inquire about any of the services he offers."
+  description="Get in touch with Aaron Joseph Hall about writing, interviews, faith, and ministry."
   path="/contact"
 >
   <section class="mx-auto max-w-2xl px-6 py-16 md:py-24">
     <p class="eyebrow">Get in touch</p>
     <h1 class="mt-3 text-4xl md:text-5xl">Contact Aaron Joseph Hall</h1>
     <p class="mt-6 text-stone text-lg">
-      For writing, media, interviews, general questions, or to inquire about any of the services I
-      offer, send a note below. I'd love to hear from you.
+      For writing, interviews, ministry, or general questions, send a note below. I'd love to hear from you.
     </p>
 
     <div class="mt-10 rounded-2xl border border-ink/10 border-l-4 border-l-clay bg-parchment-dim/60 p-6">

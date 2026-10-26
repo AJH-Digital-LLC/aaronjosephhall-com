@@ -1,0 +1,46 @@
+---
+interface Props { title: string; url: string; }
+const { title, url } = Astro.props;
+const encoded = encodeURIComponent(url);
+---
+<div class="article-share" data-share-title={title} data-share-url={url}>
+  <p class="eyebrow">Share this article</p>
+  <div class="share-actions">
+    <button type="button" data-native-share hidden>Share…</button>
+    <button type="button" data-copy-link>Copy link</button>
+    <a href={`https://www.facebook.com/sharer/sharer.php?u=${encoded}`} target="_blank" rel="noopener noreferrer">Facebook</a>
+    <a href={`https://twitter.com/intent/tweet?url=${encoded}&text=${encodeURIComponent(title)}`} target="_blank" rel="noopener noreferrer">X</a>
+    <a href={`mailto:?subject=${encodeURIComponent(title)}&body=${encoded}`}>Email</a>
+  </div>
+  <p class="share-status" role="status" aria-live="polite"></p>
+  <input class="share-fallback" type="text" value={url} readonly aria-label="Article link — select and copy" hidden />
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>("[data-share-url]").forEach((group) => {
+    const url = group.dataset.shareUrl!;
+    const title = group.dataset.shareTitle!;
+    const status = group.querySelector<HTMLElement>(".share-status")!;
+    const fallback = group.querySelector<HTMLInputElement>(".share-fallback")!;
+    group.querySelector("[data-copy-link]")?.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(url);
+        status.textContent = "Link copied!";
+        fallback.hidden = true;
+      } catch {
+        fallback.hidden = false;
+        fallback.focus(); fallback.select();
+        status.textContent = "Select and copy the link below.";
+      }
+    });
+    const share = group.querySelector<HTMLButtonElement>("[data-native-share]")!;
+    if (typeof navigator.share === "function") {
+      share.hidden = false;
+      share.addEventListener("click", async () => {
+        try { await navigator.share({ title, url }); }
+        catch (error) {
+          if (!(error instanceof Error && error.name === "AbortError")) status.textContent = "Use Copy link or one of the sharing options.";
+        }
+      });
+    }
+  });
+</script>

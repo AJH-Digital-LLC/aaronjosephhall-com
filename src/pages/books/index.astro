@@ -14,21 +14,23 @@ const books = (await getCollection("books")).sort((a, b) => a.data.order - b.dat
   <section class="border-b border-ink/10 bg-parchment-dim/50">
     <div class="mx-auto max-w-6xl px-6 py-16 md:py-24">
       <p class="eyebrow">Books</p>
-      <h1 class="mt-3 text-4xl md:text-5xl max-w-2xl">Books</h1>
+      <h1 class="mt-3 text-4xl md:text-6xl max-w-3xl">Hope for the next chapter.</h1>
+      <p class="mt-6 max-w-2xl text-lg text-stone">Books by Aaron Joseph Hall, exploring faith, redemption, and the stories God is still writing.</p>
     </div>
   </section>
 
   <section class="mx-auto max-w-6xl px-6 py-16">
-    <ul class="grid gap-10 md:grid-cols-2">
+    <ul class="book-library">
       {books.map((book) => (
         <li>
-          <a href={`/books/${book.id}/`} class="group grid grid-cols-[auto_1fr] gap-6 items-start">
-            <div class="w-28 aspect-[2/3] bg-parchment-dim border border-ink/10 rounded overflow-hidden shrink-0">
+          <a href={`/books/${book.id}/`} class="book-library-card group">
+            <div class="book-cover-stage">
               {book.data.cover ? (
                 <img
                   src={book.data.cover}
                   alt={book.data.coverAlt ?? `${book.data.title} book cover`}
-                  class="h-full w-full object-cover"
+                  class="book-cover"
+                  width="550" height="850" loading="lazy"
                 />
               ) : (
                 <div class="h-full w-full flex items-center justify-center">
@@ -36,11 +38,13 @@ const books = (await getCollection("books")).sort((a, b) => a.data.order - b.dat
                 </div>
               )}
             </div>
-            <div>
-              <h2 class="font-display text-2xl text-ink group-hover:text-clay">{book.data.title}</h2>
+            <div class="book-library-copy">
+              <p class="eyebrow mb-4">By Aaron Joseph Hall</p>
+              <h2 class="font-display text-3xl md:text-4xl text-ink group-hover:text-clay">{book.data.title}</h2>
               {book.data.subtitle && <p class="mt-1 text-stone">{book.data.subtitle}</p>}
-              <p class="mt-3 text-sm text-stone">{book.data.excerpt}</p>
-              <span class="mt-4 inline-block text-sm font-medium text-clay">View book &rarr;</span>
+              <p class="mt-6 text-lg text-stone">{book.data.excerpt}</p>
+              {book.data.pageCount && <p class="mt-5 text-sm text-stone">{book.data.pageCount} pages · {book.data.language ?? "English"}</p>}
+              <span class="action-link mt-8">Explore the book &rarr;</span>
             </div>
           </a>
         </li>

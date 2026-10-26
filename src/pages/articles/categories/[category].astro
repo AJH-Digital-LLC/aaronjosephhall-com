@@ -1,0 +1,65 @@
+---
+export const prerender = true;
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { ARTICLE_CATEGORIES } from "@/content.config";
+import { formatDate } from "@/lib/format";
+export function getStaticPaths() {
+  return ARTICLE_CATEGORIES.map(name => ({ params: { category: name.toLowerCase().replace(/[^a-z0-9]+/g, "-") }, props: { name } }));
+}
+const { name } = Astro.props;
+const posts = (await getCollection("articles", ({ data }) => !data.draft && data.category === name)).sort((a,b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
+---
+<BaseLayout title={`${name} articles`} description={`Explore all ${name} articles by Aaron Joseph Hall.`} path={Astro.url.pathname}>
+  <section class="category-archive mx-auto max-w-3xl px-6 py-16 md:py-24">
+    <a href="/articles/categories/" class="back-link">All categories</a>
+    <p class="eyebrow mt-8">Browse by topic</p>
+    <h1 class="mt-3 text-4xl md:text-5xl">{name}</h1>
+    <div class="search-area">
+      <label for="category-search">Search {name} articles</label>
+      <input id="category-search" type="search" placeholder="Search titles and summaries…" autocomplete="off" />
+      <p id="search-count" role="status" aria-live="polite">{posts.length} {posts.length === 1 ? "article" : "articles"}</p>
+    </div>
+    <ul class="post-list">
+      {posts.map(p => <li data-search-text={`${p.data.title} ${p.data.excerpt}`.toLowerCase()}>
+        <h2><a href={`/articles/${p.id}/`}>{p.data.title}</a></h2>
+        <p>{p.data.excerpt}</p>
+        {!p.data.evergreen && p.data.date && <time datetime={p.data.date.toISOString()}>{formatDate(p.data.date)}</time>}
+      </li>)}
+    </ul>
+    <p id="no-results" hidden={posts.length > 0}>{posts.length ? "No articles match your search. Try another word or clear the search." : "No published articles in this category yet."}</p>
+  </section>
+</BaseLayout>
+<script>
+  const search = document.querySelector<HTMLInputElement>("#category-search");
+  const items = Array.from(document.querySelectorAll<HTMLElement>("[data-search-text]"));
+  search?.addEventListener("input", () => {
+    const terms = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    let count = 0;
+    for (const item of items) {
+      item.hidden = !terms.every(term => item.dataset.searchText?.includes(term));
+      if (!item.hidden) count++;
+    }
+    const status = document.querySelector("#search-count");
+    if (status) status.textContent = `${count} ${count === 1 ? "article" : "articles"}${terms.length ? " found" : ""}`;
+    const empty = document.querySelector<HTMLElement>("#no-results");
+    if (empty) empty.hidden = count > 0;
+  });
+</script>
+<style>
+  .category-archive { color: #414e44; }
+  h1, h2 { color: #193b32; line-height: 1.25; overflow-wrap: anywhere; }
+  .search-area { margin: 2rem 0; }
+  label { display: block; color: #193b32; font-weight: 600; margin-bottom: .65rem; }
+  input { width: 100%; min-height: 50px; padding: .85rem 1rem; border: 1px solid #718477; border-radius: 8px; background: white; color: #193b32; font-size: 1rem; }
+  input::placeholder { color: #505c53; opacity: 1; }
+  #search-count, time { display: block; margin-top: .75rem; font-size: .875rem; }
+  .post-list { display: grid; gap: 1.25rem; }
+  .post-list li { padding: clamp(1.25rem,3vw,2rem); border: 1px solid #87988b; border-top: 4px solid #193b32; border-radius: 12px; background: white; }
+  .post-list li[hidden] { display: none; }
+  h2 { font-size: 1.5rem; }
+  h2 a { text-decoration: underline; text-underline-offset: 4px; }
+  h2 a:hover { color: #71351e; }
+  .post-list p { margin-top: 1rem; line-height: 1.7; }
+  a:focus-visible, input:focus-visible { outline: 3px solid #71351e; outline-offset: 4px; }
+</style>

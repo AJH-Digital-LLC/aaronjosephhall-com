@@ -4,7 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
 
-// Update once the production domain is live on Vercel.
+// Preserve canonical article URLs for the domain cutover.
 const SITE_URL = "https://aaronjosephhall.com";
 
 export default defineConfig({
@@ -15,8 +15,9 @@ export default defineConfig({
   // (see `export const prerender = true` in each page) — only that one
   // API route runs per-request.
   output: "server",
+  session: false,
   adapter: vercel(),
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), sitemap({ filter: (page) => !new URL(page).pathname.startsWith("/api/") && !new URL(page).pathname.startsWith("/404") })],
   vite: {
     plugins: [tailwindcss()],
   },

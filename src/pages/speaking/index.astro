@@ -12,22 +12,25 @@ const topicOptions = [...topics.map((t) => t.data.title), "Other Topics"];
 
 <BaseLayout
   title="Speaking"
-  description="Aaron Joseph Hall speaks on leadership, story, and church planting for churches, teams, and organizations."
+  description="Invite Aaron Joseph Hall for Scripture-centered preaching and teaching on discipleship, leadership, and life in the local church."
   path="/speaking"
 >
   <section class="border-b border-ink/10 bg-parchment-dim/50">
     <div class="mx-auto max-w-6xl px-6 py-16 md:py-24">
       <p class="eyebrow">Speaking</p>
-      <h1 class="mt-3 text-4xl md:text-5xl max-w-2xl">Bring Aaron in to teach, preach, or lead your team.</h1>
+      <h1 class="mt-3 text-4xl md:text-5xl max-w-3xl">Rooted in Scripture.<br />Ready for everyday life.</h1>
+      <p class="mt-6 max-w-2xl text-lg text-stone">Preaching and teaching that point people to Jesus, open the Bible with care, and connect its truth to the lives we actually live.</p>
+      <a href="#speaking-request" class="action-link mt-8">Invite Aaron to speak</a>
     </div>
   </section>
 
   <section class="mx-auto max-w-4xl px-6 py-16 md:py-20">
-    <p class="eyebrow">A teacher who prepares</p>
+    <p class="eyebrow">The Word comes first</p>
     <p class="mt-4 text-lg text-stone">
-      Aaron brings pastoral warmth and thoughtful preparation to every room—whether he's speaking
-      at a Sunday gathering, conference, nonprofit board retreat, private event, or leading a
-      half-day workshop with a staff team.
+      My priority is faithfulness to Scripture. I want the meaning of the biblical text to shape
+      the message, rather than using a verse to support an idea I already have. That means paying
+      attention to context, keeping Jesus and the gospel central, and helping people respond
+      with faith and obedience. Stories and illustrations serve the text; they never replace it.
     </p>
   </section>
 
@@ -56,16 +59,16 @@ const topicOptions = [...topics.map((t) => t.data.title), "Other Topics"];
 
   <section class="bg-pine text-parchment">
     <div class="mx-auto max-w-4xl px-6 py-16 md:py-24">
-      <p class="text-sm font-semibold uppercase tracking-[0.14em] text-brass-light">More Than a Message</p>
-      <h2 class="mt-3 text-3xl md:text-4xl text-parchment">Something You Can Remember, Apply, and Share.</h2>
+      <p class="text-sm font-semibold uppercase tracking-[0.14em] text-brass-light">What you can expect</p>
+      <h2 class="mt-3 text-3xl md:text-4xl text-parchment">Biblical depth. Pastoral care. Practical application.</h2>
 
       <p class="mt-6 text-parchment/85">
-        Great speaking isn't just about what people hear in the moment. It's about what they
-        remember when they leave, what they apply when they get home, and what they're able to
-        share with someone else.
+        Every gathering has a particular context. I want to understand your church or ministry,
+        who will be in the room, and how the message can serve the work God is already doing among you.
       </p>
       <p class="mt-4 text-parchment/85">
-        That's why I use the PSA Framework: Principle, Story, Application.
+        My preparation begins with prayer and Scripture. Clear explanation, thoughtful illustrations,
+        and practical application help listeners carry biblical truth into the week ahead.
       </p>
       <p class="mt-4 text-parchment/85">
         Whether I'm speaking on leadership, faith, church planting, communication, discipleship,
@@ -74,9 +77,9 @@ const topicOptions = [...topics.map((t) => t.data.title), "Other Topics"];
 
       <div class="mt-10 grid gap-6 sm:grid-cols-3">
         {[
-          { letter: "P", label: "Principle", copy: "Give people a clear truth they can remember." },
-          { letter: "S", label: "Story", copy: "Make that truth memorable through a story, illustration, or real-life experience." },
-          { letter: "A", label: "Application", copy: "Show people what that truth looks like when they put it into practice." },
+          { letter: "01", label: "Open the Bible", copy: "Understand the passage in context and explain its meaning clearly, with Scripture setting the direction." },
+          { letter: "02", label: "Point to Jesus", copy: "Keep the gospel at the center and encourage trust in Christ rather than confidence in ourselves." },
+          { letter: "03", label: "Live the truth", copy: "Connect the message to discipleship, relationships, leadership, and faithful next steps in ordinary life." },
         ].map((item) => (
           <div class="rounded-2xl bg-pine-dark/60 p-6">
             <span class="font-display text-2xl text-brass-light">{item.letter}</span>
@@ -86,23 +89,25 @@ const topicOptions = [...topics.map((t) => t.data.title), "Other Topics"];
         ))}
       </div>
 
-      <p class="mt-10 text-parchment/85">The result is a message that goes beyond the stage.</p>
+      <p class="mt-10 text-parchment/85">The aim is to serve people beyond a single gathering.</p>
       <p class="mt-4 text-parchment/85">
-        People don't just hear an idea—they understand it. They don't just understand it—they
-        remember it. And they don't just remember it—they know what to do with it.
+        Whether the setting is a Sunday service, retreat, conference, or leadership workshop,
+        I bring the perspective of a pastor who is still learning, serving, and leading in the local church.
       </p>
       <p class="mt-6 font-display text-xl">
-        Because the goal of every message isn't simply to say something worth hearing. It's to
-        give people something worth remembering, applying, and sharing.
+        My hope is that people leave with a deeper love for Jesus, a clearer understanding of His Word,
+        and encouragement to follow Him faithfully.
       </p>
     </div>
   </section>
 
-  <section class="mx-auto max-w-3xl px-6 py-16 md:py-20">
+  <section id="speaking-request" class="mx-auto max-w-3xl px-6 py-16 md:py-20 scroll-mt-24">
     <p class="eyebrow">Speaking Request</p>
     <h2 class="mt-3 text-3xl md:text-4xl">Tell us about your event</h2>
     <p class="mt-4 text-stone">
-      Tell Aaron about your event and his team will respond within a few business days.
+      Share your dates, location, audience, and what you hope the gathering will accomplish.
+      Please include any passage or theme, the number and length of sessions, and travel or
+      honorarium details in your message. A request starts a conversation; it does not confirm a booking.
     </p>
 
     <form id="speaking-request-form" class="mt-10 rounded-2xl border border-ink/10 bg-white shadow-sm p-6 sm:p-8" novalidate>

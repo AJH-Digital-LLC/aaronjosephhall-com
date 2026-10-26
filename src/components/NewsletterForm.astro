@@ -1,3 +1,7 @@
+---
+interface Props { heading?: string; introduction?: string; buttonLabel?: string; }
+const { heading = "Let’s stay in touch.", introduction = "Join my email list for a weekly note on faith and following Jesus. Enter your details below to subscribe.", buttonLabel = "Subscribe to Aaron’s newsletter" } = Astro.props;
+---
 <!--
   MailerLite embedded form (account 88842, form 59332139843323809), pasted
   verbatim from the MailerLite dashboard's "Embed" export. Styles and scripts
@@ -778,8 +782,8 @@ animation: ml-form-embedSubmitLoad 1.2s linear infinite;
       <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
 
         <div class="ml-form-embedContent" style=" ">
-          <h4>Subscribe To My Email List</h4>
-          <p>Every week, I write about <strong>faith, leadership, culture, and following Jesus</strong>—sharing what I’m learning, wrestling with, and discovering along the way. Expect honest conversations, biblical insight, and practical encouragement to help you <strong>lead well, live free, and follow Jesus faithfully</strong>.</p>
+          <h4>{heading}</h4>
+          {introduction ? <p>{introduction}</p> : <p>Every week, I write about <strong>faith, leadership, culture, and following Jesus</strong>—sharing what I’m learning, wrestling with, and discovering along the way. Expect honest conversations, biblical insight, and practical encouragement to help you <strong>lead well, live free, and follow Jesus faithfully</strong>.</p>}
         </div>
 
         <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/88842/forms/59332139843323809/subscribe" data-code="" method="post" target="_blank">
@@ -813,7 +817,7 @@ animation: ml-form-embedSubmitLoad 1.2s linear infinite;
           <input type="hidden" name="ml-submit" value="1">
 
           <div class="ml-form-embedSubmit">
-            <button type="submit" class="primary">Subscribe</button>
+            <button type="submit" class="primary">{buttonLabel}</button>
             <button disabled="disabled" style="display: none;" type="button" class="loading">
               <div class="ml-form-embedSubmitLoad"></div>
               <span class="sr-only">Loading...</span>
@@ -845,3 +849,48 @@ animation: ml-form-embedSubmitLoad 1.2s linear infinite;
 <script is:inline>
   fetch("https://assets.mailerlite.com/jsonp/88842/forms/59332139843323809/takel")
 </script>
+<style is:global>
+  #mlb2-787755#mlb2-787755 .ml-form-embedWrapper { width: 100% !important; max-width: none !important; background: transparent !important; border: 0 !important; box-shadow: none !important; }
+  #mlb2-787755#mlb2-787755 .ml-form-embedBody,
+  #mlb2-787755#mlb2-787755 .ml-form-successBody { padding: 0 !important; }
+  #mlb2-787755#mlb2-787755 h4 { color: #193b32 !important; font-size: 2rem !important; line-height: 1.2 !important; }
+  #mlb2-787755#mlb2-787755 p { color: #414e44 !important; font-size: 1rem !important; line-height: 1.65 !important; }
+  #mlb2-787755#mlb2-787755 .ml-form-embedPermissions p,
+  #mlb2-787755#mlb2-787755 .label-description p { font-size: .875rem !important; }
+  #mlb2-787755#mlb2-787755 a { color: #71351e !important; text-decoration: underline !important; }
+  #mlb2-787755#mlb2-787755 form,
+  #mlb2-787755#mlb2-787755 .ml-form-formContent { display: block !important; }
+  #mlb2-787755#mlb2-787755 .ml-form-fieldRow { width: 100% !important; margin-bottom: 1rem !important; }
+  #mlb2-787755#mlb2-787755 input.form-control { background: #fff !important; color: #202d25 !important; border: 1px solid #738277 !important; border-radius: 8px !important; padding: 14px !important; font-size: 16px !important; min-height: 50px; }
+  #mlb2-787755#mlb2-787755 input.form-control::placeholder { color: #505c53 !important; opacity: 1; }
+  #mlb2-787755#mlb2-787755 .ml-form-checkboxRow { float: none !important; width: 100% !important; margin-block: 1rem !important; }
+  #mlb2-787755#mlb2-787755 .ml-form-embedSubmit { float: none !important; width: 100% !important; margin: 1.5rem 0 0 !important; }
+  #mlb2-787755#mlb2-787755 .ml-form-embedSubmit button { background: #193b32 !important; color: #fffdf5 !important; border: 1px solid #193b32 !important; border-radius: 8px !important; padding: 14px 12px !important; font-size: 1rem !important; line-height: 1.4 !important; min-height: 52px; width: 100% !important; white-space: normal !important; }
+  #mlb2-787755#mlb2-787755 .ml-form-embedSubmit button:hover { background: #102a22 !important; }
+  #mlb2-787755#mlb2-787755 :focus-visible { outline: 3px solid #71351e !important; outline-offset: 3px; }
+  #mlb2-787755#mlb2-787755 .ml-error input { border-color: #a22424 !important; }
+  /* Keep consent in normal document flow, independent of the embed's floated layout. */
+  #mlb2-787755#mlb2-787755 .ml-form-embedPermissions {
+    float: none !important; clear: both !important; width: 100% !important;
+    margin: 1.25rem 0 !important;
+  }
+  #mlb2-787755#mlb2-787755 .ml-form-checkboxRow { clear: both !important; }
+  #mlb2-787755#mlb2-787755 .ml-form-checkboxRow label.checkbox {
+    display: grid !important; grid-template-columns: 22px minmax(0, 1fr);
+    gap: 12px; align-items: start; padding: 0 !important; margin: 0 !important;
+    cursor: pointer;
+  }
+  #mlb2-787755#mlb2-787755 .ml-form-checkboxRow input[type="checkbox"] {
+    position: static !important; opacity: 1 !important; z-index: auto !important;
+    appearance: auto !important; width: 22px !important; height: 22px !important;
+    margin: 2px 0 0 !important; padding: 0 !important; accent-color: #193b32;
+  }
+  #mlb2-787755#mlb2-787755 .ml-form-checkboxRow .label-description {
+    position: static !important; min-width: 0; padding: 0 !important;
+  }
+  #mlb2-787755#mlb2-787755 .ml-form-checkboxRow .label-description::before,
+  #mlb2-787755#mlb2-787755 .ml-form-checkboxRow .label-description::after {
+    display: none !important; content: none !important;
+  }
+  #mlb2-787755#mlb2-787755 .ml-form-checkboxRow .label-description p { margin: 0 !important; }
+</style>

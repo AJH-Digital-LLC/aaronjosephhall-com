@@ -1,0 +1,7 @@
+{
+  "name": "aaron-joseph-hall-ministry",
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": { "binding": "ASSETS", "directory": "./dist/client" }
+}

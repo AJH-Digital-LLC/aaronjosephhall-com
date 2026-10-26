@@ -11,6 +11,12 @@ const { hideNewsletterForm = false } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
+<style>
+  .footer-signup { width: 100%; max-width: 38rem; min-width: 0; background: #fffefa; color: #202d25; padding: clamp(1.25rem,3vw,2.5rem); border-radius: 18px; border-top: 5px solid #f2d298; box-shadow: 0 20px 50px #071c1840; }
+  .signup-eyebrow { color: #71351e; text-transform: uppercase; font-size: .8rem; letter-spacing: .1em; font-weight: 700; margin-bottom: 1.2rem; }
+  .signup-note { color: #414e44; font-size: .875rem; line-height: 1.6; border-top: 1px solid #bec9bd; padding-top: 1rem; margin-top: 1rem; }
+</style>
+
 <footer class="border-t border-ink/10 mt-24">
   <div class="mx-auto max-w-6xl px-6 py-14 grid gap-10 sm:grid-cols-2 md:grid-cols-4">
     <div>
@@ -24,17 +30,20 @@ const year = new Date().getFullYear();
         {NAV_LINKS.map((link) => (
           <li><a href={link.href} class="text-ink-soft hover:text-clay">{link.label}</a></li>
         ))}
+        <li><a href="/articles/categories/" class="text-ink-soft hover:text-clay">Blog categories</a></li>
+        <li><a href="/sitemap.xml" class="text-ink-soft hover:text-clay">Sitemap</a></li>
       </ul>
     </nav>
 
     <div class="text-sm">
       <p class="eyebrow mb-3">Connect</p>
       <ul class="space-y-2">
-        <li><a href={`mailto:${SITE.email}`} class="text-ink-soft hover:text-clay">{SITE.email}</a></li>
         <li><a href="/rss.xml" class="text-ink-soft hover:text-clay">RSS feed</a></li>
         {SOCIAL_LINKS.map((s) => (
           <li><a href={s.href} target="_blank" rel="noreferrer" class="text-ink-soft hover:text-clay">{s.label}</a></li>
         ))}
+        <li><a href="https://jubileecity.church" class="text-ink-soft hover:text-clay">Jubilee City Church</a></li>
+        <li><span class="text-ink-soft">aaron [at] aaronjosephhall [dot] com</span></li>
       </ul>
     </div>
 
@@ -52,21 +61,22 @@ const year = new Date().getFullYear();
     {!hideNewsletterForm && (
       <div class="border-b border-parchment/15">
         <div class="mx-auto max-w-6xl px-6 py-14 flex justify-center">
-          <NewsletterForm />
+          <div class="footer-signup">
+            <p class="signup-eyebrow">Make room for encouragement</p>
+            <NewsletterForm />
+            <p class="signup-note">Read when you have a quiet moment. Unsubscribe anytime.</p>
+          </div>
         </div>
       </div>
     )}
 
-    <div class="mx-auto max-w-6xl px-6 py-6 text-center">
-      <p class="text-sm text-parchment/90">
-        Do you need a website? I can build one for you! <a href="/contact" class="font-medium text-brass-light hover:underline">Contact me today!</a>
-      </p>
-    </div>
   </div>
 
   <div class="border-t border-ink/10">
-    <div class="mx-auto max-w-6xl px-6 py-5 text-xs text-stone flex flex-wrap gap-x-4 gap-y-1 justify-between">
-      <p>&copy; {year} AJH Studio, LLC. All rights reserved.</p>
+    <div class="mx-auto max-w-6xl px-6 py-5 text-sm text-stone flex flex-wrap gap-x-4 gap-y-3 justify-between">
+      <p>&copy; {year} <a href="https://ajhventuresllc.com/" class="hover:text-clay underline">AJH Ventures LLC</a>. All rights reserved.</p>
+      <a href="https://ajhdigital.com/" class="hover:text-clay underline">Website designed &amp; managed by AJH Digital</a>
+      <p class="w-full">AJH Digital is a brand/DBA of <a href="https://ajhventuresllc.com/" class="hover:text-clay underline">AJH Ventures LLC</a>.</p>
     </div>
   </div>
 </footer>

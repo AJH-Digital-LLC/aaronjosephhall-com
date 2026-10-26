@@ -17,16 +17,18 @@ const usedCategories = ARTICLE_CATEGORIES.filter((c) => allArticles.some((a) => 
 
 <BaseLayout
   title="Writing"
-  description="Aaron Joseph Hall's ministry blog — writing on life, faith, family, ministry, and technology."
+  description="Biblical encouragement and honest reflections on discipleship, family, leadership, and life in the local church from Aaron Joseph Hall."
   path="/articles"
 >
-  <section class="border-b border-ink/10 bg-parchment-dim/50">
+  <div class="writing-page">
+  <section class="writing-hero">
     <div class="mx-auto max-w-6xl px-6 py-16 md:py-24">
       <p class="eyebrow">Writing</p>
-      <h1 class="mt-3 text-4xl md:text-5xl max-w-2xl">Life, faith, family, ministry, and technology.</h1>
+      <h1 class="mt-3 text-4xl md:text-5xl max-w-2xl">Rooted in Scripture. Lived out every day.</h1>
       <p class="mt-5 max-w-xl text-stone text-lg">
-        My ministry blog — reflections from the pulpit, the front porch, and the desk, on the
-        things that shape an ordinary life lived toward God.
+        Biblical encouragement and honest reflections on following Jesus—in our families,
+        our leadership, and the life of the local church. From my life as a pastor, husband,
+        and father, I share what I’m learning about walking faithfully with Christ.
       </p>
     </div>
   </section>
@@ -59,9 +61,10 @@ const usedCategories = ARTICLE_CATEGORIES.filter((c) => allArticles.some((a) => 
 
     <div class="flex flex-wrap gap-2 mb-10" role="group" aria-label="Filter by category">
       <button type="button" class="category-filter-btn" data-category="all" aria-pressed="true">All</button>
-      {usedCategories.map((c) => (
+      {usedCategories.slice(0, 4).map((c) => (
         <button type="button" class="category-filter-btn" data-category={c} aria-pressed="false">{c}</button>
       ))}
+      <a href="/articles/categories/" class="category-filter-btn">View All</a>
     </div>
 
     <ul id="article-grid" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -79,29 +82,47 @@ const usedCategories = ARTICLE_CATEGORIES.filter((c) => allArticles.some((a) => 
 
     <p id="no-results" hidden class="text-stone text-sm py-10 text-center">No articles match your search.</p>
   </section>
+  </div>
 </BaseLayout>
 
 <style>
+  .writing-page { background: #fcfbf8; color: #202d25; }
+  .writing-hero { background: #193b32; border-bottom: 1px solid #193b32; }
+  .writing-hero h1 { color: #fffdf5; }
+  .writing-hero .eyebrow { color: #f2d298; }
+  .writing-hero p.text-stone { color: #e7eee9; }
+  .writing-page :global(.article-card) { border-bottom-color: #8a958c; }
+  .writing-page :global(.article-card h3) { color: #202d25; }
+  .writing-page :global(.article-card .text-stone) { color: #434d45; }
+  .writing-page :global(.article-card .eyebrow),
+  .writing-page > section:not(.writing-hero) :global(.eyebrow) { color: #743b24; }
+  .writing-page :global(.article-card:hover h3) { color: #743b24; text-decoration: underline; }
+  #article-search { background: #fff; border: 1px solid #738277; color: #202d25; min-height: 44px; font-size: 1rem; max-width: 100%; }
+  #article-search::placeholder { color: #505c53; opacity: 1; }
+  .writing-page :global(a:focus-visible),
+  .category-filter-btn:focus-visible, #article-search:focus-visible { outline: 3px solid #193b32; outline-offset: 4px; }
   .category-filter-btn {
-    border: 1px solid color-mix(in srgb, var(--color-ink) 15%, transparent);
+    border: 1px solid #738277;
     border-radius: 999px;
-    padding: 0.35rem 0.9rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--color-ink-soft);
-    background: transparent;
+    padding: 0.65rem 1rem;
+    min-height: 44px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #253d2f;
+    background: #fff;
     transition: background-color 0.15s, color 0.15s, border-color 0.15s;
   }
+  .category-filter-btn:hover { background: #e5ece4; border-color: #193b32; }
   .category-filter-btn[aria-pressed="true"] {
-    background: var(--color-clay);
-    border-color: var(--color-clay);
-    color: var(--color-parchment);
+    background: #193b32;
+    border-color: #193b32;
+    color: #fffdf5;
   }
 </style>
 
 <script>
   const items = Array.from(document.querySelectorAll<HTMLElement>(".article-grid-item"));
-  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>(".category-filter-btn"));
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>("button.category-filter-btn"));
   const searchInput = document.getElementById("article-search") as HTMLInputElement | null;
   const noResults = document.getElementById("no-results");
 
