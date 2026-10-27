@@ -7,6 +7,10 @@ interface Props {
   /** Exact public path, including trailing slash if the original URL has one. */
   path: string;
   image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageAlt?: string;
+  imageType?: string;
   type?: "website" | "article";
   publishedTime?: Date;
   modifiedTime?: Date;
@@ -18,6 +22,7 @@ const {
   description,
   path,
   image,
+  imageWidth, imageHeight, imageAlt, imageType,
   type = "website",
   publishedTime,
   modifiedTime,
@@ -40,6 +45,11 @@ const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:image" content={ogImage} />
+<meta property="og:image:secure_url" content={ogImage} />
+{imageWidth && <meta property="og:image:width" content={String(imageWidth)} />}
+{imageHeight && <meta property="og:image:height" content={String(imageHeight)} />}
+{imageType && <meta property="og:image:type" content={imageType} />}
+{imageAlt && <meta property="og:image:alt" content={imageAlt} />}
 {type === "article" && publishedTime && (
   <meta property="article:published_time" content={publishedTime.toISOString()} />
 )}
@@ -52,3 +62,4 @@ const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
+{imageAlt && <meta name="twitter:image:alt" content={imageAlt} />}
