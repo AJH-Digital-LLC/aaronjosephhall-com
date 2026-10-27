@@ -11,6 +11,10 @@ interface Props {
   description: string;
   path: string;
   image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageAlt?: string;
+  imageType?: string;
   type?: "website" | "article";
   publishedTime?: Date;
   modifiedTime?: Date;
@@ -26,6 +30,7 @@ const {
   description,
   path,
   image,
+  imageWidth, imageHeight, imageAlt, imageType,
   type,
   publishedTime,
   modifiedTime,
@@ -60,6 +65,10 @@ const schemaBlocks = structuredData
       description={description}
       path={path}
       image={image}
+      imageWidth={imageWidth}
+      imageHeight={imageHeight}
+      imageAlt={imageAlt}
+      imageType={imageType}
       type={type}
       publishedTime={publishedTime}
       modifiedTime={modifiedTime}
