@@ -20,6 +20,7 @@ export interface NavLink {
 // else (Leadership, Consulting, Ministry, Media) was removed rather than
 // hidden — see MIGRATION.md.
 export const NAV_LINKS: (NavLink & { inNav?: boolean })[] = [
+  { label: "LIVE", href: "/live" },
   { label: "About", href: "/about" },
   { label: "Writing", href: "/articles" },
   { label: "Podcast", href: "/podcast" },

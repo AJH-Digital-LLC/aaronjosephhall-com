@@ -1,5 +1,6 @@
 ---
 import Header from "@/components/Header.astro";
+import LiveBanner from "@/components/LiveBanner.astro";
 import Footer from "@/components/Footer.astro";
 import CookieBanner from "@/components/CookieBanner.astro";
 import SEO from "@/components/SEO.astro";
@@ -83,6 +84,7 @@ const schemaBlocks = structuredData
       Skip to content
     </a>
     <Header />
+    <LiveBanner />
     <main id="main" class="flex-1">
       <slot />
     </main>

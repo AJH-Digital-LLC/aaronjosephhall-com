@@ -1,0 +1,103 @@
+---
+export const prerender = true;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+<BaseLayout title="Watch LIVE — Jubilee City Church" description="Join Aaron and Jubilee City Church online Sundays at 10 AM Central. Watch the live broadcast or catch the latest service replay." path="/live/">
+  <section class="live-hero">
+    <div class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+      <p class="eyebrow">Jubilee City Church · Sundays at 10 AM Central</p>
+      <h1>Worship with us.<br />Wherever you are.</h1>
+      <p class="intro">Join me and our Jubilee City Church family for worship and God’s Word. Watch the latest service below—or join the live broadcast when we’re on air.</p>
+    </div>
+  </section>
+  <section class="watch mx-auto max-w-6xl px-6 py-12 md:py-16" aria-label="Watch LIVE">
+    <div class="player-toolbar">
+      <p id="live-status" role="status">Checking the broadcast…</p>
+      <button id="live-refresh" type="button">Check again</button>
+    </div>
+    <div class="video-frame">
+      <iframe id="live-player" src="https://www.youtube.com/embed/7rZOPIsFa3Y?playsinline=1&amp;rel=0" title="Jubilee City Church service replay" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    <h2 id="broadcast-title">Jubilee City Church</h2>
+    <p id="live-help">Press play to watch. This page checks every 30 seconds and switches to the live broadcast when it begins.</p>
+    <noscript><p>Automatic live detection needs JavaScript. You can still play the service above or visit the channel below.</p></noscript>
+    <div class="watch-actions">
+      <a id="youtube-watch" class="primary-action" href="https://www.youtube.com/@MyJubileeCityChurch/live" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a>
+      <a href="https://jubileecity.church/sermons/">Watch past sermons</a>
+    </div>
+    <aside class="next-steps">
+      <p class="eyebrow">More than a broadcast</p>
+      <h2>Take your next step.</h2>
+      <p>There’s a place for you at Jubilee City. Connect with our church family, explore baptism, find a group, or support the ministry.</p>
+      <div class="steps-grid">
+        <a href="https://jubileecity.church/give/">Giving ↗</a>
+        <a href="https://jubileecity.church/connect/">Connect ↗</a>
+        <a href="https://jubileecity.church/baptism/">Baptism ↗</a>
+        <a href="https://jubileecity.church/groups/">Groups ↗</a>
+      </div>
+    </aside>
+  </section>
+</BaseLayout>
+<script>
+  const player = document.querySelector<HTMLIFrameElement>('#live-player')!;
+  const status = document.querySelector<HTMLElement>('#live-status')!;
+  const title = document.querySelector<HTMLElement>('#broadcast-title')!;
+  const refresh = document.querySelector<HTMLButtonElement>('#live-refresh')!;
+  const watch = document.querySelector<HTMLAnchorElement>('#youtube-watch')!;
+  let busy = false;
+  let videoId = '7rZOPIsFa3Y';
+  async function check() {
+    if (busy) return;
+    busy = true; refresh.disabled = true; refresh.textContent = 'Checking…';
+    try {
+      const response = await fetch('/api/live', { signal: AbortSignal.timeout(12000) });
+      if (!response.ok) throw new Error('Unavailable');
+      const data = await response.json();
+      if (!['live', 'replay', 'upcoming'].includes(data.status) || !/^[\w-]{11}$/.test(data.videoId)) throw new Error('No broadcast');
+      status.textContent = data.status === 'live' ? '● Live now' : data.status === 'upcoming' ? 'Waiting for the service to begin' : 'Service replay';
+      status.dataset.live = String(data.status === 'live');
+      title.textContent = data.title || 'Jubilee City Church';
+      player.title = data.title || 'Jubilee City Church broadcast';
+      if (videoId !== data.videoId) {
+        videoId = data.videoId;
+        player.src = `https://www.youtube.com/embed/${videoId}?playsinline=1&rel=0`;
+      }
+      watch.href = `https://www.youtube.com/watch?v=${videoId}`;
+    } catch {
+      status.textContent = 'Live status unavailable — watch a replay below or check YouTube';
+      status.dataset.live = 'false';
+      watch.href = 'https://www.youtube.com/@MyJubileeCityChurch/live';
+    } finally { busy = false; refresh.disabled = false; refresh.textContent = 'Check again'; }
+  }
+  refresh.addEventListener('click', check);
+  window.setInterval(() => { if (!document.hidden) void check(); }, 30000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) void check(); });
+  void check();
+</script>
+<style>
+  .live-hero { background:#193b32; color:#fffdf5; }
+  .live-hero .eyebrow { color:#f3d9a6; }
+  h1 { color:inherit; font-size:clamp(2.6rem,6vw,4.8rem); line-height:1.08; margin:1rem 0; }
+  .intro { max-width:44rem; font-size:1.15rem; line-height:1.8; color:#f0eee5; }
+  .watch { color:#26392e; }
+  .player-toolbar { display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:1rem; }
+  #live-status { font-weight:700; }
+  #live-status[data-live=true] { color:#a12525; }
+  button,.watch-actions a,.steps-grid a { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:.7rem 1.1rem; border:1px solid #65786b; border-radius:6px; font-weight:600; }
+  button { flex-shrink:0; cursor:pointer; }
+  button:disabled { opacity:.65; cursor:wait; }
+  .video-frame { aspect-ratio:16/9; background:#13251e; overflow:hidden; border-radius:12px; }
+  iframe { display:block; width:100%; height:100%; border:0; }
+  #broadcast-title { margin-top:1.5rem; font-size:1.6rem; }
+  #live-help { margin-top:.7rem; line-height:1.7; }
+  .watch-actions { display:flex; flex-wrap:wrap; gap:.8rem; margin-top:1.5rem; }
+  .watch-actions .primary-action { background:#193b32; color:#fffdf5; }
+  .next-steps { margin-top:3.5rem; padding:clamp(1.5rem,4vw,3rem); border-radius:12px; background:#e8eee5; border:1px solid #a5b4a4; }
+  .next-steps h2 { font-size:2.2rem; margin:.5rem 0 1rem; }
+  .next-steps p { max-width:44rem; line-height:1.7; }
+  .steps-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:1.5rem; }
+  .steps-grid a { background:#fffdf5; }
+  a:hover,button:hover { text-decoration:underline; }
+  a:focus-visible,button:focus-visible { outline:3px solid #996230; outline-offset:4px; }
+  @media(max-width:600px) { .steps-grid { grid-template-columns:1fr 1fr; } .player-toolbar { align-items:flex-start; } }
+</style>
