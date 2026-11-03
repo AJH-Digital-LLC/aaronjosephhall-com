@@ -19,12 +19,13 @@
   window.setInterval(update, 1000);
 </script>
 <style>
-  .live-banner { background:#193b32; color:#fffdf5; padding: .9rem max(1.5rem, calc((100% - 72rem)/2 + 1.5rem)); display:flex; justify-content:space-between; gap:1rem; align-items:center; }
+  .live-banner { background:#f3d9a6; color:#25231d; border-bottom:3px solid #b78647; padding: 1.1rem max(1.5rem, calc((100% - 72rem)/2 + 1.5rem)); display:flex; justify-content:space-between; gap:1rem; align-items:center; }
   p { margin:0; font-size:.85rem; font-weight:600; }
   #sunday-invitation { font-family:var(--font-display); font-size:1.5rem; margin:.3rem 0; }
-  span { font-size:.8rem; color:#e9eadf; }
-  a { flex-shrink:0; border:1px solid #e3c58b; border-radius:6px; padding:.65rem 1rem; color:#193b32; background:#f3d9a6; font-weight:700; }
+  span { font-size:.8rem; color:#494033; }
+  a { flex-shrink:0; border:2px solid #71351e; border-radius:8px; padding:.75rem 1.25rem; color:#fffdf5; background:#71351e; font-weight:700; box-shadow:0 3px 0 #492315; }
+  a:hover { background:#492315; }
   a span { color:inherit; }
-  a:focus-visible { outline:3px solid white; outline-offset:4px; }
+  a:focus-visible { outline:3px solid #25231d; outline-offset:4px; }
   @media(max-width:520px) { .live-banner { align-items:flex-start; flex-direction:column; } }
 </style>

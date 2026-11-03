@@ -1,13 +1,10 @@
 ---
 export const prerender = true;
-import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { SITE } from "@/data/site";
 
-const topics = (await getCollection("speaking")).sort((a, b) => a.data.order - b.data.order);
+const topics = ["Leadership", "Marriage & Family", "Evangelism", "Next Generation", "Generosity", "Men’s Ministry", "Communications", "Preaching & Teaching"];
 
-const eventTypes = ["Sunday Service", "Conference", "Retreat", "Workshop", "Other"];
-const topicOptions = [...topics.map((t) => t.data.title), "Other Topics"];
 ---
 
 <BaseLayout
@@ -18,9 +15,9 @@ const topicOptions = [...topics.map((t) => t.data.title), "Other Topics"];
   <section class="border-b border-ink/10 bg-parchment-dim/50">
     <div class="mx-auto max-w-6xl px-6 py-16 md:py-24">
       <p class="eyebrow">Speaking</p>
-      <h1 class="mt-3 text-4xl md:text-5xl max-w-3xl">Rooted in Scripture.<br />Ready for everyday life.</h1>
-      <p class="mt-6 max-w-2xl text-lg text-stone">Preaching and teaching that point people to Jesus, open the Bible with care, and connect its truth to the lives we actually live.</p>
-      <a href="#speaking-request" class="action-link mt-8">Invite Aaron to speak</a>
+      <h1 class="mt-3 text-4xl md:text-5xl max-w-3xl">Encounter Jesus.<br />Live with purpose.</h1>
+      <p class="mt-6 max-w-2xl text-lg text-stone">Biblical, authentic, and practical teaching that helps people experience freedom in Christ, grow deeper in faith, and discover their God-given purpose.</p>
+      <a href="https://sentspeakers.com/speakers/aaron-joseph-hall" class="action-link mt-8">Invite Aaron to speak</a>
     </div>
   </section>
 
@@ -48,10 +45,19 @@ const topicOptions = [...topics.map((t) => t.data.title), "Other Topics"];
       <div>
         <p class="eyebrow">Speaker Bio</p>
         <p class="mt-4 text-stone">
-          Aaron Joseph Hall is a pastor, church planter, writer, and speaker who teaches on faith,
-          leadership, communication, and discipleship. He helps leaders and teams grow in clarity,
-          conviction, and confidence. His talks are faith-filled, practical, and designed to be
-          remembered, applied, and shared—regardless of the setting.
+          Aaron Joseph Hall is a pastor, church planter, author, and speaker based in Daphne, Alabama.
+          With over a decade of ministry experience, he is passionate about preaching the Gospel,
+          developing leaders, and encouraging people to live boldly in their faith.
+        </p>
+        <p class="mt-4 text-stone">
+          Aaron is the founding and lead pastor of Jubilee City Church, where he and his wife,
+          Sarah, are building a church centered on freedom, people, and purpose. His ministry
+          focuses on the transforming power of God’s Word and equipping others to make a lasting impact.
+        </p>
+        <p class="mt-4 text-stone">
+          As the author of <em>Redeem the Story</em>, Aaron shares hope, redemption, and God’s ability
+          to bring purpose out of difficult seasons. Whether serving churches, conferences, or leaders,
+          he encourages people to trust God’s faithfulness and live out their calling.
         </p>
       </div>
     </div>
@@ -105,79 +111,13 @@ const topicOptions = [...topics.map((t) => t.data.title), "Other Topics"];
     <p class="eyebrow">Speaking Request</p>
     <h2 class="mt-3 text-3xl md:text-4xl">Tell us about your event</h2>
     <p class="mt-4 text-stone">
-      Share your dates, location, audience, and what you hope the gathering will accomplish.
+      For all speaking requests, visit my Sent Speakers profile. Share your dates, location,
+      audience, and what you hope the gathering will accomplish.
       Please include any passage or theme, the number and length of sessions, and travel or
       honorarium details in your message. A request starts a conversation; it does not confirm a booking.
     </p>
 
-    <form id="speaking-request-form" class="mt-10 rounded-2xl border border-ink/10 bg-white shadow-sm p-6 sm:p-8" novalidate>
-      <div class="grid gap-5 sm:grid-cols-2">
-        <div>
-          <label for="sr-name" class="block text-sm font-medium text-ink-soft mb-1.5">Name</label>
-          <input id="sr-name" name="name" type="text" required autocomplete="name"
-            class="w-full rounded border border-ink/10 bg-white px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-clay" />
-        </div>
-        <div>
-          <label for="sr-email" class="block text-sm font-medium text-ink-soft mb-1.5">Email</label>
-          <input id="sr-email" name="email" type="email" required autocomplete="email"
-            class="w-full rounded border border-ink/10 bg-white px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-clay" />
-        </div>
-        <div>
-          <label for="sr-organization" class="block text-sm font-medium text-ink-soft mb-1.5">Organization / Church</label>
-          <input id="sr-organization" name="organization" type="text" autocomplete="organization"
-            class="w-full rounded border border-ink/10 bg-white px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-clay" />
-        </div>
-        <div>
-          <label for="sr-event-date" class="block text-sm font-medium text-ink-soft mb-1.5">Event date</label>
-          <input id="sr-event-date" name="eventDate" type="date"
-            class="w-full rounded border border-ink/10 bg-white px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-clay" />
-        </div>
-        <div>
-          <label for="sr-event-type" class="block text-sm font-medium text-ink-soft mb-1.5">Event type</label>
-          <select id="sr-event-type" name="eventType"
-            class="w-full rounded border border-ink/10 bg-white px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-clay">
-            <option value="">Select one&hellip;</option>
-            {eventTypes.map((t) => <option value={t}>{t}</option>)}
-          </select>
-        </div>
-        <div>
-          <label for="sr-topic" class="block text-sm font-medium text-ink-soft mb-1.5">Desired speaking topic</label>
-          <select id="sr-topic" name="topic" required
-            class="w-full rounded border border-ink/10 bg-white px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-clay">
-            <option value="">Select one&hellip;</option>
-            {topicOptions.map((t) => <option value={t}>{t}</option>)}
-          </select>
-        </div>
-        <div id="sr-topic-other-row" hidden class="sm:col-span-2">
-          <label for="sr-topic-other" class="block text-sm font-medium text-ink-soft mb-1.5">What topic did you have in mind?</label>
-          <input id="sr-topic-other" name="topicOther" type="text"
-            class="w-full rounded border border-ink/10 bg-white px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-clay" />
-        </div>
-        <div class="sm:col-span-2">
-          <label for="sr-message" class="block text-sm font-medium text-ink-soft mb-1.5">Tell us about your event</label>
-          <textarea id="sr-message" name="message" rows="5" required
-            class="w-full rounded border border-ink/10 bg-white px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-clay"></textarea>
-        </div>
-      </div>
-
-      <div class="hidden" aria-hidden="true">
-        <label for="sr-company">Company</label>
-        <input id="sr-company" name="company" type="text" tabindex="-1" autocomplete="off" />
-      </div>
-
-      <p id="sr-error" hidden class="mt-5 text-sm text-clay-dark"></p>
-
-      <div class="mt-6">
-        <button type="submit" id="sr-submit" class="rounded-full bg-clay text-parchment px-6 py-3 text-sm font-medium hover:bg-clay-dark transition-colors disabled:opacity-60">
-          Send Speaking Request
-        </button>
-      </div>
-    </form>
-
-    <div id="sr-success" hidden class="mt-10 rounded-2xl border border-ink/10 bg-white shadow-sm p-8 text-center">
-      <h3 class="font-display text-2xl text-ink">Thank you!</h3>
-      <p class="mt-2 text-stone">Your request has been sent. Aaron's team will respond within a few business days.</p>
-    </div>
+    <a href="https://sentspeakers.com/speakers/aaron-joseph-hall" class="action-link mt-8">Request Aaron through Sent Speakers &rarr;</a>
   </section>
 
   <section class="border-t border-ink/10 mx-auto max-w-6xl px-6 py-16 md:py-20">
@@ -189,74 +129,39 @@ const topicOptions = [...topics.map((t) => t.data.title), "Other Topics"];
       your event or organization.
     </p>
 
-    <ul class="mt-10 grid gap-8 md:grid-cols-3">
+    <ul class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
       {topics.map((topic) => (
-        <li>
-          <a href={`/speaking/${topic.id}`} class="group block h-full rounded-2xl border border-ink/10 bg-white shadow-sm p-8 transition-shadow hover:shadow-md">
-            {topic.data.category && <p class="eyebrow">{topic.data.category}</p>}
-            <h2 class="mt-2 font-display text-2xl text-ink group-hover:text-clay">{topic.data.title}</h2>
-            <p class="mt-3 text-stone text-sm">{topic.data.excerpt}</p>
-            <span class="mt-5 inline-block text-sm font-medium text-clay">Learn more &rarr;</span>
-          </a>
-        </li>
+        <li class="rounded-xl border border-ink/10 bg-white p-5 font-medium text-ink">{topic}</li>
       ))}
+    </ul>
+    <p class="mt-8 text-stone">Available for in-person events, virtual speaking, and podcast interviews. Contact through Sent Speakers for rates and availability.</p>
+    <h2 class="mt-12 text-2xl">Watch Aaron speak</h2>
+    <div class="mt-6 grid gap-6 md:grid-cols-2">
+      {[
+        { id: "WWQEN2zNpjo", title: "Embracing the Power of Discipleship" },
+        { id: "1mYVeYh5iUk", title: "The Power of Choice in Following Jesus" },
+      ].map((video) => (
+        <div>
+          <iframe src={`https://www.youtube.com/embed/${video.id}`} title={video.title} class="aspect-video w-full rounded-xl" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <h3 class="mt-3 text-lg">{video.title}</h3>
+        </div>
+      ))}
+    </div>
+    <h2 class="mt-12 text-2xl">Past engagements</h2>
+    <ul class="mt-4 space-y-2 text-stone">
+      <li>Winter Splash — North Carolina</li>
+      <li>Eagle Rock Camp — Tallassee, Tennessee</li>
+      <li>Camp Baldwin — Elberta, Alabama (2026)</li>
     </ul>
 
     <div class="mt-10 rounded-2xl border border-dashed border-ink/10 bg-parchment-dim/60 p-8">
       <h2 class="font-display text-xl">Other Topics</h2>
       <p class="mt-2 text-stone text-sm max-w-2xl">
-        Don't see exactly what you're looking for? No problem. Select "Other Topics" in the
-        "Desired speaking topic" section above and share what you have in mind. Aaron can tailor
+        Don't see exactly what you're looking for? Share what you have in mind through
+        <a href="https://sentspeakers.com/speakers/aaron-joseph-hall" class="text-clay underline">Sent Speakers</a>. Aaron can tailor
         his message, workshop, or presentation to fit the needs of your audience, event, church,
         organization, or team.
       </p>
     </div>
   </section>
 </BaseLayout>
-
-<script>
-  const form = document.getElementById("speaking-request-form") as HTMLFormElement | null;
-  const topicSelect = document.getElementById("sr-topic") as HTMLSelectElement | null;
-  const topicOtherRow = document.getElementById("sr-topic-other-row") as HTMLElement | null;
-  const submitButton = document.getElementById("sr-submit") as HTMLButtonElement | null;
-  const errorEl = document.getElementById("sr-error") as HTMLElement | null;
-  const successEl = document.getElementById("sr-success") as HTMLElement | null;
-
-  topicSelect?.addEventListener("change", () => {
-    const isOther = topicSelect.value === "Other Topics";
-    if (topicOtherRow) topicOtherRow.hidden = !isOther;
-  });
-
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!submitButton || !errorEl) return;
-
-    errorEl.hidden = true;
-    submitButton.disabled = true;
-    submitButton.textContent = "Sending…";
-
-    const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
-
-    try {
-      const res = await fetch("/api/speaking-request", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const result = await res.json();
-
-      if (!res.ok || !result.ok) {
-        throw new Error(result.error || "Something went wrong. Please try again.");
-      }
-
-      form.hidden = true;
-      if (successEl) successEl.hidden = false;
-    } catch (err) {
-      errorEl.textContent = err instanceof Error ? err.message : "Something went wrong. Please try again.";
-      errorEl.hidden = false;
-      submitButton.disabled = false;
-      submitButton.textContent = "Send Speaking Request";
-    }
-  });
-</script>

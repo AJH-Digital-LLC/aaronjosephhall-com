@@ -1,10 +1,8 @@
 ---
 export const prerender = true;
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { SITE } from "@/data/site";
 
 const reasons = ["General Inquiry", "Writing / Media / Interview", "Ministry", "Other"];
-const obfuscatedEmail = SITE.email.replace("@", " [at] ").replace(/\.(?=[^.]*$)/, " [dot] ");
 ---
 
 <BaseLayout
@@ -22,14 +20,11 @@ const obfuscatedEmail = SITE.email.replace("@", " [at] ").replace(/\.(?=[^.]*$)/
     <div class="mt-10 rounded-2xl border border-ink/10 border-l-4 border-l-clay bg-parchment-dim/60 p-6">
       <h2 class="font-display text-lg">Booking Aaron to speak?</h2>
       <p class="mt-2 text-sm text-stone">
-        Use the speaking request form so your event details reach the right place.
+        Please submit all speaking requests through Aaron’s Sent Speakers profile.
       </p>
-      <a href="/speaking" class="mt-3 inline-block text-sm font-medium text-clay hover:underline">
-        Go to speaking requests &rarr;
+      <a href="https://sentspeakers.com/speakers/aaron-joseph-hall" class="mt-3 inline-block text-sm font-medium text-clay hover:underline">
+        Request Aaron through Sent Speakers &rarr;
       </a>
-      <p class="mt-4 text-sm text-stone">
-        Prefer email? <span class="text-ink-soft">{obfuscatedEmail}</span>
-      </p>
     </div>
 
     <form id="contact-form" class="mt-10 rounded-2xl border border-ink/10 bg-white shadow-sm p-6 sm:p-8" novalidate>
