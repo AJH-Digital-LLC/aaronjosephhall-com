@@ -36,7 +36,11 @@ const bookSummary = featuredBook
           <a href="/about" class="rounded-full border border-ink/20 px-6 py-3 text-sm font-medium text-ink hover:border-ink hover:bg-ink/5 transition-colors">
             Meet Aaron
           </a>
+          <a href="https://x.com/AaronJosephHall" target="_blank" rel="noopener noreferrer" class="x-follow">
+            <span aria-hidden="true">𝕏</span> Follow me on X <span class="sr-only">(opens in a new tab)</span>
+          </a>
         </div>
+        <p class="mt-4 text-sm text-stone">Join the conversation: @AaronJosephHall</p>
       </div>
       <div class="portrait-frame aspect-[4/5] overflow-hidden bg-parchment-dim">
         <img
@@ -85,3 +89,10 @@ const bookSummary = featuredBook
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .x-follow { display:inline-flex; align-items:center; gap:.65rem; border-radius:9999px; padding:.75rem 1.5rem; background:#171717; color:#fff; font-size:.875rem; font-weight:600; text-decoration:none; }
+  .x-follow:hover { background:#333; }
+  .x-follow:focus-visible { outline:3px solid #71351e; outline-offset:4px; }
+  .x-follow > span[aria-hidden] { font-size:1.1rem; line-height:1; }
+</style>

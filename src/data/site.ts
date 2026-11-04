@@ -28,9 +28,11 @@ export const NAV_LINKS: (NavLink & { inNav?: boolean })[] = [
   { label: "Books", href: "/books" },
   { label: "Newsletter", href: "/newsletter" },
   { label: "Contact", href: "/contact" },
+  { label: "Follow on X", href: "https://x.com/AaronJosephHall" },
 ];
 
 export const SOCIAL_LINKS: { label: string; href: string }[] = [
+  { label: "Follow me on X", href: "https://x.com/AaronJosephHall" },
   { label: "Facebook", href: "https://www.facebook.com/AuthorAJH" },
   { label: "Instagram", href: "https://www.instagram.com/aaronjosephhall" },
   { label: "YouTube", href: "https://www.youtube.com/@aaronjosephhall" },

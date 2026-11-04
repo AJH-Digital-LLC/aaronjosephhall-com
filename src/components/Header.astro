@@ -16,7 +16,7 @@ function isActive(href: string) {
       {SITE.name}
     </a>
 
-    <nav aria-label="Primary" class="hidden lg:flex items-center gap-7 text-sm">
+    <nav aria-label="Primary" class="hidden xl:flex items-center gap-5 text-sm whitespace-nowrap">
       {links.map((link) => (
         <a
           href={link.href}
@@ -31,7 +31,7 @@ function isActive(href: string) {
       ))}
     </nav>
 
-    <details class="lg:hidden relative shrink-0">
+    <details class="xl:hidden relative shrink-0">
       <summary class="list-none cursor-pointer select-none rounded border border-ink/10 px-3 py-1.5 text-sm font-medium text-ink-soft">
         Menu
       </summary>
